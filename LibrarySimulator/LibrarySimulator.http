@@ -1,0 +1,6 @@
+@LibrarySimulator_HostAddress = http://localhost:5022
+
+GET {{LibrarySimulator_HostAddress}}/api/
+Accept: application/json
+
+###
