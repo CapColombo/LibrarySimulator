@@ -20,7 +20,7 @@ public class CommandHandler : IRequestHandler<ChangeVisitorCommand, ChangeVisito
             return new ChangeVisitorCommandResult(new Error());
         }
 
-        var visitor = _context.Visitors.FirstOrDefault(v =>  v.Id == id);
+        var visitor = _context.Visitors.FirstOrDefault(v => v.Id == id);
 
         if (visitor == null)
         {

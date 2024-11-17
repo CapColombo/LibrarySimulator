@@ -1,8 +1,15 @@
 ﻿namespace LibrarySimulator.Middleware;
 
-public class BrowserNotSupportedMiddleware : IMiddleware
+public class BrowserNotSupportedMiddleware
 {
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    private readonly RequestDelegate _next;
+
+    public BrowserNotSupportedMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
     {
         string? userAgent = context.Request.Headers.UserAgent;
 
@@ -13,7 +20,7 @@ public class BrowserNotSupportedMiddleware : IMiddleware
             return;
         }
 
-        await next(context);
+        await _next(context);
     }
 
     private static bool IsInternetExplorer(string? userAgent)
@@ -24,5 +31,13 @@ public class BrowserNotSupportedMiddleware : IMiddleware
         }
 
         return userAgent.Contains("MSIE") || userAgent.Contains("Trident");
+    }
+}
+
+public static class MyCustomMiddlewareExtensions
+{
+    public static IApplicationBuilder UseBrowserNotSupportedMiddleware(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<BrowserNotSupportedMiddleware>();
     }
 }

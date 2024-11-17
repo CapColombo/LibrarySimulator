@@ -46,6 +46,8 @@ internal class ConfigureServices
             };
             o.UseNpgsql(connectionString, npgsqlOptionsAction);
         });
+
+        builder.Services.AddScoped<ILibraryContext, LibraryContext>();
     }
 
     internal static void ConfigureLogging(IHostApplicationBuilder builder)

@@ -17,6 +17,7 @@ namespace LibrarySimulator.Controllers;
 public class AdminController : Controller
 {
     [HttpGet]
+    [Route("list")]
     public async Task<IActionResult> GetEmployeeListAsync([FromServices] IMediator mediator)
     {
         GetEmployeeListQueryResult queryResult = await mediator.Send(new GetEmployeeListQuery());
@@ -26,7 +27,7 @@ public class AdminController : Controller
             error => NotFound());
     }
 
-    [HttpGet]
+    [HttpGet]    
     public async Task<IActionResult> GetEmployeeAsync([FromServices] IMediator mediator, string id)
     {
         GetEmployeeQueryResult queryResult = await mediator.Send(new GetEmployeeQuery(id));

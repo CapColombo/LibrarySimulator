@@ -22,13 +22,15 @@ builder.Services.AddDependencies();
 
 var app = builder.Build();
 
+app.UseBrowserNotSupportedMiddleware();
+
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<BrowserNotSupportedMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

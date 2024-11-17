@@ -17,6 +17,7 @@ namespace LibrarySimulator.Controllers;
 public class VisitorController : Controller
 {
     [HttpGet]
+    [Route("list")]
     public async Task<IActionResult> GetVisitorListAsync([FromServices] IMediator mediator)
     {
         GetVisitorListQueryResult queryResult = await mediator.Send(new GetVisitorListQuery());

@@ -14,6 +14,7 @@ namespace LibrarySimulator.Controllers;
 public class OperationController : Controller
 {
     [HttpGet]
+    [Route("list")]
     public async Task<IActionResult> GetOperationListAsync([FromServices] IMediator mediator)
     {
         GetOperationListQueryResult queryResult = await mediator.Send(new GetOperationListQuery());

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Library.BLL.Modules.Visitors.Queries.GetVisitor;
 using Library.DAL;
 using Library.DAL.Dto.QueryCommandResult;
 using MediatR;
@@ -21,6 +22,11 @@ public class QueryHandler : IRequestHandler<GetVisitorListQuery, GetVisitorListQ
 
     public async Task<GetVisitorListQueryResult> Handle(GetVisitorListQuery request, CancellationToken cancellationToken)
     {
+        if (request is null)
+        {
+            return new GetVisitorListQueryResult(new NotFound());
+        }
+
         List<VisitorResultDto> result = await _context.Visitors
             .AsNoTracking()
             .Include(v => v.RentedBooks)

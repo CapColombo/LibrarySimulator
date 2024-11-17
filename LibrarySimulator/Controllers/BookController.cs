@@ -14,6 +14,7 @@ namespace LibrarySimulator.Controllers;
 public class BookController : Controller
 {
     [HttpGet]
+    [Route("list")]
     public async Task<IActionResult> GetBookListAsync([FromServices] IMediator mediator)
     {
         GetBookListQueryResult queryResult = await mediator.Send(new GetBookListQuery());

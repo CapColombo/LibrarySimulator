@@ -13,7 +13,7 @@ public class Visitor
         Email = email;
     }
 
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; }
 
