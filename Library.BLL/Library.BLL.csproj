@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Books\Commands\" />
-    <Folder Include="Modules\Books\Queries\" />
     <Folder Include="Modules\Operations\Queries\GetOperationList\" />
     <Folder Include="Services\" />
   </ItemGroup>

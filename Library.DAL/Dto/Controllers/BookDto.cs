@@ -9,13 +9,9 @@ public class BookDto
 
     public string Description { get; set; }
 
-    public List<Author> Authors { get; } = [];
+    public List<Author> Authors { get; set; } = [];
 
-    public List<Genre> Genres { get; } = [];
+    public List<Genre> Genres { get; set; } = [];
 
     public DateTime PublicationDate { get; set; }
-
-    public bool InStock { get; set; }
-
-    public PhysicalCondition PhysicalCondition { get; set; }
 }
