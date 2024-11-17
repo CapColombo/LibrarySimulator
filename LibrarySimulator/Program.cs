@@ -1,8 +1,8 @@
 using Library.BLL;
 using LibrarySimulator;
+using LibrarySimulator.Middleware;
 using System.Reflection;
 
-// –еализовать фильтр, провер€ющий с какого браузера сделан запрос
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -26,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<BrowserNotSupportedMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
