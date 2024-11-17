@@ -20,6 +20,8 @@ public class Book
 
     public Guid Id { get; }
 
+    public Guid? RentedBookId { get; set; }
+
     public string Title { get; set; }
 
     public string Description { get; set; }

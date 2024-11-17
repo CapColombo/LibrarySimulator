@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryTests", "LibraryTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Migrations", "Library.Migrations\Library.Migrations.csproj", "{C3A3C594-D793-4E86-B552-35749365DB7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Common", "LibraryCommon\Library.Common.csproj", "{5C3DEC02-F3CD-4DC3-975D-045DEB8A4D7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{C3A3C594-D793-4E86-B552-35749365DB7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3A3C594-D793-4E86-B552-35749365DB7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3A3C594-D793-4E86-B552-35749365DB7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C3DEC02-F3CD-4DC3-975D-045DEB8A4D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C3DEC02-F3CD-4DC3-975D-045DEB8A4D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C3DEC02-F3CD-4DC3-975D-045DEB8A4D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C3DEC02-F3CD-4DC3-975D-045DEB8A4D7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

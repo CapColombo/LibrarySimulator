@@ -19,13 +19,13 @@ public class Visitor
 
     public List<RentedBook> RentedBooks { get; } = [];
 
-    public void AddBooks(List<RentedBook> books)
+    public void AddBook(RentedBook book)
     {
-        RentedBooks.AddRange(books);
+        RentedBooks.Add(book);
     }
 
-    public void ReturnBooks(List<Guid> booksId)
+    public void ReturnBook(RentedBook book)
     {
-        RentedBooks.RemoveAll(b => booksId.Contains(b.Id));
+        RentedBooks.Remove(book);
     }
 }

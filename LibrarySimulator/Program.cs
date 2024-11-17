@@ -3,7 +3,6 @@ using LibrarySimulator;
 using System.Reflection;
 
 // —делать таймер на каждый день, который смотрит на просроченные книги
-// –еализовать обсервер на операцию, слушатели: book, visitor, operation, logger
 // –еализовать фильтр, провер€ющий с какого браузера сделан запрос
 var builder = WebApplication.CreateBuilder(args);
 
