@@ -1,5 +1,11 @@
-﻿using Library.DAL.Dto.Controllers;
+﻿using Library.BLL.Modules.Admin.Commands.AddEmployee;
+using Library.BLL.Modules.Admin.Commands.ChangeEmployee;
+using Library.BLL.Modules.Admin.Commands.DeleteEmployee;
+using Library.BLL.Modules.Admin.Queries.GetEmployee;
+using Library.BLL.Modules.Admin.Queries.GetEmployeeList;
+using Library.DAL.Dto.Controllers;
 using Library.DAL.Models.Employees;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,32 +17,52 @@ namespace LibrarySimulator.Controllers;
 public class AdminController : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> GetEmployeesList()
+    public async Task<IActionResult> GetEmployeesList([FromServices] IMediator mediator)
     {
-        return null;
+        GetEmployeeListQueryResult queryResult = await mediator.Send(new GetEmployeeListQuery());
+
+        return queryResult.Result.Match<IActionResult>(
+            data => Json(data),
+            error => BadRequest());
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetEmployee(string id)
+    public async Task<IActionResult> GetEmployee([FromServices] IMediator mediator, string id)
     {
-        return null;
+        GetEmployeeQueryResult queryResult = await mediator.Send(new GetEmployeeQuery(id));
+
+        return queryResult.Result.Match<IActionResult>(
+            data => Json(data),
+            error => BadRequest());
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddEmployee(string id)
+    public async Task<IActionResult> AddEmployee([FromServices] IMediator mediator, EmployeeDto employeeDto)
     {
-        return null;
+        AddEmployeeCommandResult commandResult = await mediator.Send(new AddEmployeeCommand(employeeDto));
+
+        return commandResult.Result.Match<IActionResult>(
+            success => Ok(),
+            error => BadRequest());
     }
 
     [HttpPut]
-    public async Task<IActionResult> ChangeEmployee(EmployeeDto employeeDto)
+    public async Task<IActionResult> ChangeEmployee([FromServices] IMediator mediator, string id, EmployeeDto employeeDto)
     {
-        return null;
+        ChangeEmployeeCommandResult commandResult = await mediator.Send(new ChangeEmployeeCommand(id, employeeDto));
+
+        return commandResult.Result.Match<IActionResult>(
+            success => Ok(),
+            error => BadRequest());
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteEmployee(string id)
+    public async Task<IActionResult> DeleteEmployee([FromServices] IMediator mediator, string id)
     {
-        return null;
+        DeleteEmployeeCommandResult commandResult = await mediator.Send(new DeleteEmployeeCommand(id));
+
+        return commandResult.Result.Match<IActionResult>(
+            success => Ok(),
+            error => BadRequest());
     }
 }
