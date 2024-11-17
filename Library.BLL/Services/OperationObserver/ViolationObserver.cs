@@ -1,7 +1,6 @@
 ﻿using Library.BLL.Services.OperationObserver.Interfaces;
 using Library.Common.Extensions;
 using Library.DAL;
-using Library.DAL.Models.Books;
 using Library.DAL.Models.Enums;
 using Library.DAL.Models.Statistic;
 using Library.DAL.Models.Visitors;

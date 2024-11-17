@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySimulator", "LibrarySimulator\LibrarySimulator.csproj", "{F80F9D2B-DBE8-426B-A2DB-99C1A396E7B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "LibrarySimulator\LibrarySimulator.csproj", "{F80F9D2B-DBE8-426B-A2DB-99C1A396E7B9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5DEAA085-839B-4D08-9DB0-9E2D42EB3923} = {5DEAA085-839B-4D08-9DB0-9E2D42EB3923}
 	EndProjectSection
@@ -15,11 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.BLL", "Library.BLL\
 		{5DEAA085-839B-4D08-9DB0-9E2D42EB3923} = {5DEAA085-839B-4D08-9DB0-9E2D42EB3923}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Tests", "LibraryTests\Library.Tests.csproj", "{8BB51614-5C9B-4FAB-9DF2-383F6549B222}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Tests", "Library.Tests\Library.Tests.csproj", "{8BB51614-5C9B-4FAB-9DF2-383F6549B222}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Migrations", "Library.Migrations\Library.Migrations.csproj", "{C3A3C594-D793-4E86-B552-35749365DB7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Common", "LibraryCommon\Library.Common.csproj", "{5C3DEC02-F3CD-4DC3-975D-045DEB8A4D7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Common", "Library.Common\Library.Common.csproj", "{5C3DEC02-F3CD-4DC3-975D-045DEB8A4D7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
