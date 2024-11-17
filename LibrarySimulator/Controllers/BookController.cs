@@ -14,27 +14,27 @@ namespace LibrarySimulator.Controllers;
 public class BookController : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> GetBookList([FromServices] IMediator mediator)
+    public async Task<IActionResult> GetBookListAsync([FromServices] IMediator mediator)
     {
         GetBookListQueryResult queryResult = await mediator.Send(new GetBookListQuery());
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            error => NotFound());
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetBook([FromServices] IMediator mediator, string id)
+    public async Task<IActionResult> GetBookAsync([FromServices] IMediator mediator, string id)
     {
         GetBookQueryResult queryResult = await mediator.Send(new GetBookQuery(id));
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            error => NotFound());
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddBook([FromServices] IMediator mediator, BookDto bookDto)
+    public async Task<IActionResult> AddBookAsync([FromServices] IMediator mediator, BookDto bookDto)
     {
         AddBookCommandResult commandResult = await mediator.Send(new AddBookCommand(bookDto));
 
@@ -44,7 +44,7 @@ public class BookController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> ChangeBook([FromServices] IMediator mediator, string id, BookDto bookDto)
+    public async Task<IActionResult> ChangeBookAsync([FromServices] IMediator mediator, string id, BookDto bookDto)
     {
         ChangeBookCommandResult commandResult = await mediator.Send(new ChangeBookCommand(id, bookDto));
 
@@ -54,7 +54,7 @@ public class BookController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteBook([FromServices] IMediator mediator, string id)
+    public async Task<IActionResult> DeleteBookAsync([FromServices] IMediator mediator, string id)
     {
         DeleteBookCommandResult commandResult = await mediator.Send(new DeleteBookCommand(id));
 

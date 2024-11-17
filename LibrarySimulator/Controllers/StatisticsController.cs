@@ -12,12 +12,12 @@ namespace LibrarySimulator.Controllers;
 public class StatisticsController : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> GetOperationStatistics([FromServices] IMediator mediator, DateTime startDate, DateTime endDate)
+    public async Task<IActionResult> GetOperationStatisticsAsync([FromServices] IMediator mediator, DateTime startDate, DateTime endDate)
     {
         GetOperationStatisticsQueryResult queryResult = await mediator.Send(new GetOperationStatisticsQuery(startDate, endDate));
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            error => NotFound());
     }
 }

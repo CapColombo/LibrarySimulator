@@ -17,27 +17,27 @@ namespace LibrarySimulator.Controllers;
 public class VisitorController : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> GetVisitorList([FromServices] IMediator mediator)
+    public async Task<IActionResult> GetVisitorListAsync([FromServices] IMediator mediator)
     {
         GetVisitorListQueryResult queryResult = await mediator.Send(new GetVisitorListQuery());
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            notFound => NotFound());
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetVisitor([FromServices] IMediator mediator, string id)
+    public async Task<IActionResult> GetVisitorAsync([FromServices] IMediator mediator, string id)
     {
         GetVisitorQueryResult queryResult = await mediator.Send(new GetVisitorQuery(id));
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            notFound => NotFound());
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddVisitor([FromServices] IMediator mediator, VisitorDto visitorDto)
+    public async Task<IActionResult> AddVisitorAsync([FromServices] IMediator mediator, VisitorDto visitorDto)
     {
         AddVisitorCommandResult commandResult = await mediator.Send(new AddVisitorCommand(visitorDto));
 
@@ -47,7 +47,7 @@ public class VisitorController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> ChangeVisitor([FromServices] IMediator mediator, string id, VisitorDto visitorDto)
+    public async Task<IActionResult> ChangeVisitorAsync([FromServices] IMediator mediator, string id, VisitorDto visitorDto)
     {
         ChangeVisitorCommandResult commandResult = await mediator.Send(new ChangeVisitorCommand(id, visitorDto));
 
@@ -57,7 +57,7 @@ public class VisitorController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteVisitor([FromServices] IMediator mediator, string id)
+    public async Task<IActionResult> DeleteVisitorAsync([FromServices] IMediator mediator, string id)
     {
         DeleteVisitorCommandResult commandResult = await mediator.Send(new DeleteVisitorCommand(id));
 

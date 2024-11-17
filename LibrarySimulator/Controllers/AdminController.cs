@@ -17,27 +17,27 @@ namespace LibrarySimulator.Controllers;
 public class AdminController : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> GetEmployeesList([FromServices] IMediator mediator)
+    public async Task<IActionResult> GetEmployeeListAsync([FromServices] IMediator mediator)
     {
         GetEmployeeListQueryResult queryResult = await mediator.Send(new GetEmployeeListQuery());
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            error => NotFound());
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetEmployee([FromServices] IMediator mediator, string id)
+    public async Task<IActionResult> GetEmployeeAsync([FromServices] IMediator mediator, string id)
     {
         GetEmployeeQueryResult queryResult = await mediator.Send(new GetEmployeeQuery(id));
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            error => NotFound());
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddEmployee([FromServices] IMediator mediator, EmployeeDto employeeDto)
+    public async Task<IActionResult> AddEmployeeAsync([FromServices] IMediator mediator, EmployeeDto employeeDto)
     {
         AddEmployeeCommandResult commandResult = await mediator.Send(new AddEmployeeCommand(employeeDto));
 
@@ -47,7 +47,7 @@ public class AdminController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> ChangeEmployee([FromServices] IMediator mediator, string id, EmployeeDto employeeDto)
+    public async Task<IActionResult> ChangeEmployeeAsync([FromServices] IMediator mediator, string id, EmployeeDto employeeDto)
     {
         ChangeEmployeeCommandResult commandResult = await mediator.Send(new ChangeEmployeeCommand(id, employeeDto));
 
@@ -57,7 +57,7 @@ public class AdminController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteEmployee([FromServices] IMediator mediator, string id)
+    public async Task<IActionResult> DeleteEmployeeAsync([FromServices] IMediator mediator, string id)
     {
         DeleteEmployeeCommandResult commandResult = await mediator.Send(new DeleteEmployeeCommand(id));
 

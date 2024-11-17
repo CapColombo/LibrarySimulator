@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.BLL", "Library.BLL\
 		{5DEAA085-839B-4D08-9DB0-9E2D42EB3923} = {5DEAA085-839B-4D08-9DB0-9E2D42EB3923}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryTests", "LibraryTests\LibraryTests.csproj", "{8BB51614-5C9B-4FAB-9DF2-383F6549B222}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Tests", "LibraryTests\Library.Tests.csproj", "{8BB51614-5C9B-4FAB-9DF2-383F6549B222}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Migrations", "Library.Migrations\Library.Migrations.csproj", "{C3A3C594-D793-4E86-B552-35749365DB7E}"
 EndProject

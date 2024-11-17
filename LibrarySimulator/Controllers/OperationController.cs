@@ -14,17 +14,17 @@ namespace LibrarySimulator.Controllers;
 public class OperationController : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> GetOperationList([FromServices] IMediator mediator)
+    public async Task<IActionResult> GetOperationListAsync([FromServices] IMediator mediator)
     {
         GetOperationListQueryResult queryResult = await mediator.Send(new GetOperationListQuery());
 
         return queryResult.Result.Match<IActionResult>(
-            data => Json(data),
-            error => BadRequest());
+            data => Ok(data),
+            error => NotFound());
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddOperation([FromServices] IMediator mediator, OperationDto operationDto)
+    public async Task<IActionResult> AddOperationAsync([FromServices] IMediator mediator, OperationDto operationDto)
     {
         AddOperationCommandResult commandResult = await mediator.Send(new AddOperationCommand(operationDto));
 

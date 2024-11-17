@@ -3,6 +3,8 @@ using LibrarySimulator;
 using LibrarySimulator.Middleware;
 using System.Reflection;
 
+// Сделать FluentApi для БД
+// Добавить валидацию
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
