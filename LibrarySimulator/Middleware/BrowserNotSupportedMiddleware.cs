@@ -8,7 +8,7 @@ public class BrowserNotSupportedMiddleware : IMiddleware
 
         if (IsInternetExplorer(userAgent))
         {
-            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsync("Browser not supported.");
             return;
         }

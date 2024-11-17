@@ -2,6 +2,7 @@
 using Library.BLL.Modules.Admin.AutoMapper;
 using Library.BLL.Modules.Books.AutoMapper;
 using Library.BLL.Modules.Operations.AutoMapper;
+using Library.BLL.Modules.Statistics.AutoMapper;
 using Library.BLL.Modules.Visitors.AutoMapper;
 using Library.BLL.Services.ExpiredViolationWorker;
 using Library.BLL.Services.OperationObserver;
@@ -27,6 +28,7 @@ public static class DependencyInjectionExtensions
         services.AddAutoMapper(typeof(BookProfile));
         services.AddAutoMapper(typeof(VisitorProfile));
         services.AddAutoMapper(typeof(EmployeeProfile));
+        services.AddAutoMapper(typeof(OperationStatisticsProfile));
         return services;
     }
 
