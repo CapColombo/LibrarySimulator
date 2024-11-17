@@ -23,6 +23,8 @@ public interface ILibraryContext
 
     DbSet<Operation> Operations { get; set; }
 
+    DbSet<Violation> Violations { get; set; }
+
     Task<int> SaveChangesAsync(CancellationToken token);
 
     Task<int> RemoveWithSaveAsync<T>(T value, CancellationToken token) where T : class;

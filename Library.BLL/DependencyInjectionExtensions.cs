@@ -1,7 +1,9 @@
-﻿using Library.BLL.Modules.Admin.AutoMapper;
+﻿using Library.BLL.HostedServices;
+using Library.BLL.Modules.Admin.AutoMapper;
 using Library.BLL.Modules.Books.AutoMapper;
 using Library.BLL.Modules.Operations.AutoMapper;
 using Library.BLL.Modules.Visitors.AutoMapper;
+using Library.BLL.Services.ExpiredViolationWorker;
 using Library.BLL.Services.OperationObserver;
 using Library.BLL.Services.OperationObserver.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,8 @@ public static class DependencyInjectionExtensions
     {
         services.AddAutoMapperDependencies();
         services.AddOperationObserverDependencies();
+        services.AddSingleton<IExpiredViolationWorker, ExpiredViolationWorker>();
+        services.AddHostedService<ExpiredViolationWorkerHostedService>();
         return services;
     }
 

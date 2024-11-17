@@ -1,5 +1,4 @@
-﻿using Library.BLL.Services.OperationObserver;
-using Library.BLL.Services.OperationObserver.Interfaces;
+﻿using Library.BLL.Services.OperationObserver.Interfaces;
 using Library.DAL.Models.Enums;
 using Library.DAL.Models.Statistic;
 using MediatR;
@@ -37,11 +36,12 @@ public class CommandHandler : IRequestHandler<AddOperationCommand, AddOperationC
 
     public async Task<AddOperationCommandResult> Handle(AddOperationCommand request, CancellationToken cancellationToken)
     {
-        _operationData.RegisterObserver(_operationObserver);
         if (request.OperationDto.OperationType is OperationType.Returned)
         {
             _operationData.RegisterObserver(_violationObserver);
         }
+
+        _operationData.RegisterObserver(_operationObserver);
         _operationData.RegisterObserver(_bookObserver);
         _operationData.RegisterObserver(_rentedBookObserver);
         _operationData.RegisterObserver(_visitorObserver);

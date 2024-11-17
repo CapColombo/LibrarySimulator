@@ -1,6 +1,7 @@
 ﻿using Library.BLL.Services.OperationObserver.Interfaces;
 using Library.Common.Extensions;
 using Library.DAL;
+using Library.DAL.Models.Books;
 using Library.DAL.Models.Enums;
 using Library.DAL.Models.Statistic;
 using Library.DAL.Models.Visitors;
@@ -24,9 +25,14 @@ public class ViolationObserver : IViolationObserver
             throw new ArgumentException(nameof(operation));
         }
 
-        bool hasViolations = false;
+        Visitor? visitor = await _context.Visitors.FirstOrDefaultAsync(v => v.Id == operation.VisitorId, token);
 
-        var originalCondition = await _context.Books
+        if (visitor is null)
+        {
+            throw new ArgumentException(nameof(visitor));
+        }
+
+        PhysicalCondition originalCondition = await _context.Books
             .AsNoTracking()
             .Where(b => b.Id == operation.BookId)
             .Select(b => b.PhysicalCondition)
@@ -45,6 +51,7 @@ public class ViolationObserver : IViolationObserver
 
         Violation? damageViolation = null;
         Violation? expiredViolation = null;
+
         if (hasDamaged)
         {
             damageViolation = new(DateTime.Now, operation.VisitorId, operation.BookId,
@@ -52,38 +59,29 @@ public class ViolationObserver : IViolationObserver
 
             _context.Add(damageViolation);
 
-            hasViolations = true;
+            visitor.AddViolation(damageViolation);
         }
 
         if (hasExpired)
         {
-            expiredViolation = new(DateTime.Now, operation.VisitorId, operation.BookId,
-                ViolationType.DamagedBook, originalCondition, operation.PhysicalCondition, period);
+            expiredViolation = await _context.Violations
+                .Where(v => v.VisitorId == operation.VisitorId && v.BookId == operation.BookId)
+                .FirstOrDefaultAsync(token);
 
-            _context.Add(expiredViolation);
-
-            hasViolations = true;
-        }
-
-        if (hasViolations)
-        {
-            Visitor? visitor = await _context.Visitors.FirstOrDefaultAsync(v => v.Id == operation.VisitorId, token);
-
-            if (visitor is null)
+            if (expiredViolation == null)
             {
-                throw new ArgumentException(nameof(visitor));
-            }
+                expiredViolation = new(DateTime.Now, operation.VisitorId, operation.BookId,
+                                ViolationType.DamagedBook, originalCondition, operation.PhysicalCondition, period);
 
-            if (damageViolation is not null)
-            {
-                visitor.AddViolation(damageViolation);
-            }
-            if (expiredViolation is not null)
-            {
+                _context.Add(expiredViolation);
                 visitor.AddViolation(expiredViolation);
             }
-
-            await _context.SaveChangesAsync(token);
+            else
+            {
+                expiredViolation.OverdueDays = period;
+            }
         }
+
+        await _context.SaveChangesAsync(token);
     }
 }
