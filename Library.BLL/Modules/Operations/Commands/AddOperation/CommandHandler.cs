@@ -1,5 +1,6 @@
 ﻿using Library.BLL.Services.OperationObserver;
 using Library.BLL.Services.OperationObserver.Interfaces;
+using Library.DAL.Models.Enums;
 using Library.DAL.Models.Statistic;
 using MediatR;
 using OneOf.Types;
@@ -10,6 +11,7 @@ public class CommandHandler : IRequestHandler<AddOperationCommand, AddOperationC
 {
     private readonly IOperationSubject _operationData;
     private readonly IOperationObserver _operationObserver;
+    private readonly IViolationObserver _violationObserver;
     private readonly IBookObserver _bookObserver;
     private readonly IRentedBookObserver _rentedBookObserver;
     private readonly IVisitorObserver _visitorObserver;
@@ -18,6 +20,7 @@ public class CommandHandler : IRequestHandler<AddOperationCommand, AddOperationC
     public CommandHandler(
         IOperationSubject operationData,
         IOperationObserver operationObserver,
+        IViolationObserver violationObserver,
         IBookObserver bookObserver,
         IRentedBookObserver rentedBookObserver,
         IVisitorObserver visitorObserver,
@@ -25,6 +28,7 @@ public class CommandHandler : IRequestHandler<AddOperationCommand, AddOperationC
     {
         _operationData = operationData;
         _operationObserver = operationObserver;
+        _violationObserver = violationObserver;
         _bookObserver = bookObserver;
         _rentedBookObserver = rentedBookObserver;
         _visitorObserver = visitorObserver;
@@ -34,12 +38,17 @@ public class CommandHandler : IRequestHandler<AddOperationCommand, AddOperationC
     public async Task<AddOperationCommandResult> Handle(AddOperationCommand request, CancellationToken cancellationToken)
     {
         _operationData.RegisterObserver(_operationObserver);
+        if (request.OperationDto.OperationType is OperationType.Returned)
+        {
+            _operationData.RegisterObserver(_violationObserver);
+        }
         _operationData.RegisterObserver(_bookObserver);
         _operationData.RegisterObserver(_rentedBookObserver);
         _operationData.RegisterObserver(_visitorObserver);
         _operationData.RegisterObserver(_loggerObserver);
 
-        Operation operation = new(request.OperationDto.BookId, request.OperationDto.VisitorId, request.OperationDto.OperationType, request.OperationDto.PhysicalCondition);
+        Operation operation = new(request.OperationDto.BookId, request.OperationDto.VisitorId,
+                  request.OperationDto.OperationType, request.OperationDto.PhysicalCondition);
 
         try
         {

@@ -1,4 +1,6 @@
-﻿namespace Library.DAL.Models.Visitors;
+﻿using Library.DAL.Models.Statistic;
+
+namespace Library.DAL.Models.Visitors;
 
 public class Visitor
 {
@@ -19,6 +21,8 @@ public class Visitor
 
     public List<RentedBook> RentedBooks { get; } = [];
 
+    public List<Violation> Violations { get; } = [];
+
     public void AddBook(RentedBook book)
     {
         RentedBooks.Add(book);
@@ -27,5 +31,10 @@ public class Visitor
     public void ReturnBook(RentedBook book)
     {
         RentedBooks.Remove(book);
+    }
+
+    public void AddViolation(Violation violation)
+    {
+        Violations.Add(violation);
     }
 }

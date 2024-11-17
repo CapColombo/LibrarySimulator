@@ -27,6 +27,8 @@ public interface ILibraryContext
 
     Task<int> RemoveWithSaveAsync<T>(T value, CancellationToken token) where T : class;
 
+    EntityEntry<T> Add<T>(T value) where T : class;
+
     Task<int> AddWithSaveAsync<T>(T value, CancellationToken token) where T : class;
 
     EntityEntry<T> Update<T>(T value) where T : class;

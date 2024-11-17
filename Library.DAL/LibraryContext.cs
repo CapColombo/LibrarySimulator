@@ -24,6 +24,8 @@ public class LibraryContext : DbContext, ILibraryContext
 
     public DbSet<Operation> Operations { get; set; }
 
+    public DbSet<Violation> Violations { get; set; }
+
     public async Task<int> AddWithSaveAsync<T>(T value, CancellationToken cancellationToken) where T : class
     {
         Add(value);

@@ -33,6 +33,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IBookObserver, BookObserver>();
         services.AddScoped<IRentedBookObserver, RentedBookObserver>();
         services.AddScoped<IVisitorObserver, VisitorObserver>();
+        services.AddScoped<IViolationObserver, ViolationObserver>();
         services.AddScoped<ILoggerObserver, LoggerObserver>();
         return services;
     }

@@ -8,7 +8,7 @@ public class Operation
 {
     public Operation() { }
 
-    public Operation(Guid bookId, Guid visitorId, OperationType operationType, PhysicalCondition physicalCondition, int period = 30)
+    public Operation(Guid bookId, Guid visitorId, OperationType operationType, PhysicalCondition physicalCondition, int? period = null)
     {
         Id = Guid.NewGuid();
         BookId = bookId;
@@ -16,7 +16,7 @@ public class Operation
         Date = DateTime.Now;
         OperationType = operationType;
         PhysicalCondition = physicalCondition;
-        RentalPeriod = period;
+        RentalPeriod = operationType is OperationType.Rented ? period : null;
     }
 
     public Guid Id { get; }
@@ -33,7 +33,7 @@ public class Operation
 
     public OperationType OperationType { get; set; }
 
-    public int RentalPeriod { get; set; }
+    public int? RentalPeriod { get; set; }
 
     public PhysicalCondition PhysicalCondition { get; set; }
 }

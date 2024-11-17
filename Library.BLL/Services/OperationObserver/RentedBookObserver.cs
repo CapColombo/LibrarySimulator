@@ -33,7 +33,7 @@ public class RentedBookObserver : IRentedBookObserver
 
         if (operation.OperationType is OperationType.Rented)
         {
-            RentedBook rentedBook = new(book.Id, operation.VisitorId, operation.RentalPeriod);
+            RentedBook rentedBook = new(book.Id, operation.VisitorId, operation.RentalPeriod.Value);
             book.RentedBookId = rentedBook.Id;
 
             _context.RentedBooks.Add(rentedBook);
