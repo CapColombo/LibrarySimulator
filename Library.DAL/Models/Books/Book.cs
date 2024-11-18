@@ -1,4 +1,5 @@
 ﻿using Library.DAL.Models.Enums;
+using Library.DAL.Models.Visitors;
 
 namespace Library.DAL.Models.Books;
 
@@ -21,6 +22,8 @@ public class Book
     public Guid Id { get; set; }
 
     public Guid? RentedBookId { get; set; }
+
+    public RentedBook RentedBook { get; set; }
 
     public string Title { get; set; }
 

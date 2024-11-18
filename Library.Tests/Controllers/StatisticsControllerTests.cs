@@ -1,8 +1,5 @@
-﻿using Library.BLL.Modules.Operations.Commands.AddOperation;
-using Library.BLL.Modules.Operations.Queries.GetOperationList;
-using Library.BLL.Modules.Statistics.Queries.GetOperationStatistics;
+﻿using Library.BLL.Modules.Statistics.Queries.GetOperationStatistics;
 using Library.DAL.Constants;
-using Library.DAL.Dto.Controllers;
 using Library.DAL.Dto.QueryCommandResult;
 using LibrarySimulator.Controllers;
 using MediatR;
@@ -12,7 +9,7 @@ using Moq;
 using OneOf.Types;
 using System.Security.Claims;
 
-namespace Library.Tests.ControllersTests;
+namespace Library.Tests.Controllers;
 
 public class StatisticsControllerTests
 {

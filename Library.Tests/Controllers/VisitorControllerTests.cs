@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Library.BLL.Modules.Visitors.Commands.AddVisitor;
+﻿using Library.BLL.Modules.Visitors.Commands.AddVisitor;
 using Library.BLL.Modules.Visitors.Commands.ChangeVisitor;
 using Library.BLL.Modules.Visitors.Commands.DeleteVisitor;
 using Library.BLL.Modules.Visitors.Queries.GetVisitor;
 using Library.BLL.Modules.Visitors.Queries.GetVisitorList;
-using Library.DAL;
 using Library.DAL.Constants;
 using Library.DAL.Dto.Controllers;
 using Library.DAL.Dto.QueryCommandResult;
@@ -15,9 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using OneOf.Types;
 using System.Security.Claims;
-using System.Xml.Linq;
 
-namespace Library.Tests.ControllersTests;
+namespace Library.Tests.Controllers;
 
 public class VisitorControllerTests
 {

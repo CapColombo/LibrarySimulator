@@ -47,5 +47,59 @@ public class LibraryContext : DbContext, ILibraryContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Author>(b =>
+        { 
+            b.HasKey(e => e.Id);
+            b.HasMany(e => e.Books).WithMany(b => b.Authors);
+        });
+
+        modelBuilder.Entity<Book>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.HasMany(e => e.Authors).WithMany(b => b.Books);
+            b.HasMany(e => e.Genres);
+            b.HasOne(e => e.RentedBook).WithOne(e => e.Book).HasForeignKey<RentedBook>(e => e.BookId);
+        });
+
+        modelBuilder.Entity<RentedBook>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.HasOne(e => e.Book).WithOne(e => e.RentedBook).HasForeignKey<Book>(e => e.RentedBookId);
+            b.HasOne(e => e.Visitor).WithMany(e => e.RentedBooks).HasForeignKey(e => e.VisitorId);
+        });
+
+        modelBuilder.Entity<Visitor>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.HasMany(e => e.RentedBooks).WithOne(e => e.Visitor);
+            b.HasMany(e => e.Violations).WithOne(e => e.Visitor);
+        });
+
+        modelBuilder.Entity<Violation>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.HasOne(e => e.Book);
+            b.HasOne(e => e.Visitor).WithMany(e => e.Violations).HasForeignKey(e => e.VisitorId);
+        });
+
+        modelBuilder.Entity<Employee>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.HasOne(e => e.Role);
+        });
+
+        modelBuilder.Entity<Role>(b =>
+        {
+            b.HasKey(e => e.Id);
+        });
+
+        modelBuilder.Entity<Operation>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.HasOne(e => e.Book);
+            b.HasOne(e => e.Visitor);
+            b.HasIndex(e => e.Date);
+        });
     }
 }

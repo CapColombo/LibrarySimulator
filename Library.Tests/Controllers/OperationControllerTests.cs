@@ -11,7 +11,7 @@ using Moq;
 using OneOf.Types;
 using System.Security.Claims;
 
-namespace Library.Tests.ControllersTests;
+namespace Library.Tests.Controllers;
 
 public class OperationControllerTests
 {
