@@ -8,6 +8,7 @@ public class EmployeeProfile : Profile
 {
     public EmployeeProfile()
     {
-        CreateMap<Employee, EmployeeResultDto>();
+        CreateMap<Employee, EmployeeResultDto>()
+            .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
     }
 }

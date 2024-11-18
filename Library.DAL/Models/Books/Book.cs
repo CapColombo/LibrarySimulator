@@ -18,7 +18,7 @@ public class Book
         PhysicalCondition = PhysicalCondition.New;
     }
 
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 
     public Guid? RentedBookId { get; set; }
 

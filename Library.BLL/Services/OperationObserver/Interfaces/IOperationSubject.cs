@@ -10,5 +10,5 @@ public interface IOperationSubject
 
     public Task NotifyObserversAsync(CancellationToken token);
 
-    public Task SetOperation(Operation operation, CancellationToken token);
+    public Task SetOperationAsync(Operation operation, CancellationToken token);
 }

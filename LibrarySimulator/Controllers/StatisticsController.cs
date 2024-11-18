@@ -1,5 +1,5 @@
 ﻿using Library.BLL.Modules.Statistics.Queries.GetOperationStatistics;
-using Library.DAL.Models.Employees;
+using Library.DAL.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

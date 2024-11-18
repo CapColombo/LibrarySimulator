@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
-using Library.BLL.Modules.Visitors.AutoMapper;
-using Library.BLL.Modules.Visitors.Queries.GetVisitorList;
+using Library.BLL.Modules.Statistics.AutoMapper;
+using Library.BLL.Modules.Statistics.Queries.GetOperationStatistics;
 using Library.DAL;
 using Library.DAL.Dto.QueryCommandResult;
-using Library.DAL.Models.Visitors;
+using Library.DAL.Models.Statistic;
 using MockQueryable.Moq;
 using Moq;
-using Moq.EntityFrameworkCore;
 using OneOf.Types;
 
-namespace Library.Tests.Modules.Visitors;
+namespace Library.Tests.Modules.Statistics;
 
-public class GetVisitorListQueryTests
+public class GetStatisticsListQueryTests
 {
     private Mock<ILibraryContext> _contextMock;
     private Mock<IMapper> _mapperMock;
@@ -21,7 +20,7 @@ public class GetVisitorListQueryTests
     public void Setup()
     {
         _contextMock = new Mock<ILibraryContext>();
-        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(new VisitorProfile()));
+        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(new OperationStatisticsProfile()));
         _mapperMock = new Mock<IMapper>();
         _mapperMock.Setup(m => m.ConfigurationProvider).Returns(configuration);
         _handler = new(_contextMock.Object, _mapperMock.Object);
@@ -31,7 +30,7 @@ public class GetVisitorListQueryTests
     public async Task Handle_RequestIsNull_ReturnsNotFoundAsync()
     {
         // Arrange
-        GetVisitorListQuery? query = null;
+        GetOperationStatisticsQuery? query = null;
 
         // Act
         var actual = await _handler.Handle(query, CancellationToken.None);
@@ -46,13 +45,14 @@ public class GetVisitorListQueryTests
     }
 
     [Test]
-    public async Task Handle_WhenVisitorListNotFound_ReturnsNotFoundAsync()
+    public async Task Handle_WhenOperationListNotFound_ReturnsNotFoundAsync()
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        GetVisitorListQuery? query = new();
-        List<Visitor> visitors = [];
-        _contextMock.Setup(c => c.Visitors).Returns(visitors.AsQueryable().BuildMockDbSet().Object);
+        DateTime date = DateTime.UtcNow;
+        GetOperationStatisticsQuery? query = new(date, date);
+        List<Operation> operations = [];
+        _contextMock.Setup(c => c.Operations).Returns(operations.AsQueryable().BuildMockDbSet().Object);
 
         // Act
         var actual = await _handler.Handle(query, CancellationToken.None);
@@ -65,7 +65,7 @@ public class GetVisitorListQueryTests
             Assert.That(actual.Result.AsT1, Is.InstanceOf<NotFound>());
         });
 
-        _contextMock.Verify(c => c.Visitors, Times.Once());
+        _contextMock.Verify(c => c.Operations, Times.Once());
     }
 
     [Test]
@@ -73,11 +73,12 @@ public class GetVisitorListQueryTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        GetVisitorListQuery? query = new();
-        Visitor visitor = new() { Id = id, Name = "Name", Email = "Email" };
-        List<Visitor> visitors = [visitor];
-        _contextMock.Setup(c => c.Visitors).Returns(visitors.AsQueryable().BuildMockDbSet().Object);
-        _contextMock.Setup(c => c.RentedBooks).ReturnsDbSet([]);
+        DateTime startDate = DateTime.Today.AddDays(-1);
+        DateTime endDate = DateTime.Today.AddDays(1);
+        GetOperationStatisticsQuery? query = new(startDate, endDate);
+        Operation operation = new() { Id = id, Visitor = new("name", "email"), Book = new() { Title = "title" }, Date = DateTime.Today };
+        List<Operation> operations = [operation];
+        _contextMock.Setup(c => c.Operations).Returns(operations.AsQueryable().BuildMockDbSet().Object);
 
         // Act
         var actual = await _handler.Handle(query, CancellationToken.None);
@@ -87,10 +88,10 @@ public class GetVisitorListQueryTests
         {
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual.Result.IsT0, Is.True);
-            Assert.That(actual.Result.AsT0, Is.InstanceOf<IReadOnlyList<VisitorResultDto>>());
+            Assert.That(actual.Result.AsT0, Is.InstanceOf<IReadOnlyList<OperationStatisticsResultDto>>());
             Assert.That(actual.Result.AsT0, Has.Count.EqualTo(1));
         });
 
-        _contextMock.Verify(c => c.Visitors, Times.Once());
+        _contextMock.Verify(c => c.Operations, Times.Once());
     }
 }

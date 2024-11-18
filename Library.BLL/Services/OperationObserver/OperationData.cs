@@ -8,7 +8,7 @@ public class OperationData : IOperationSubject
     private readonly List<IOperationObserver> _observers = [];
     private Operation? _operation = null;
 
-    public async Task SetOperation(Operation operation, CancellationToken token)
+    public async Task SetOperationAsync(Operation operation, CancellationToken token)
     {
         _operation = operation;
         await NotifyObserversAsync(token);

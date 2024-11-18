@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using Library.BLL.Modules.Visitors.AutoMapper;
-using Library.BLL.Modules.Visitors.Queries.GetVisitorList;
+using Library.BLL.Modules.Admin.AutoMapper;
+using Library.BLL.Modules.Admin.Queries.GetEmployeeList;
 using Library.DAL;
 using Library.DAL.Dto.QueryCommandResult;
-using Library.DAL.Models.Visitors;
+using Library.DAL.Models.Employees;
 using MockQueryable.Moq;
 using Moq;
 using Moq.EntityFrameworkCore;
 using OneOf.Types;
 
-namespace Library.Tests.Modules.Visitors;
+namespace Library.Tests.Modules.Employees;
 
-public class GetVisitorListQueryTests
+public class GetEmployeeListQueryTests
 {
     private Mock<ILibraryContext> _contextMock;
     private Mock<IMapper> _mapperMock;
@@ -21,7 +21,7 @@ public class GetVisitorListQueryTests
     public void Setup()
     {
         _contextMock = new Mock<ILibraryContext>();
-        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(new VisitorProfile()));
+        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(new EmployeeProfile()));
         _mapperMock = new Mock<IMapper>();
         _mapperMock.Setup(m => m.ConfigurationProvider).Returns(configuration);
         _handler = new(_contextMock.Object, _mapperMock.Object);
@@ -31,7 +31,7 @@ public class GetVisitorListQueryTests
     public async Task Handle_RequestIsNull_ReturnsNotFoundAsync()
     {
         // Arrange
-        GetVisitorListQuery? query = null;
+        GetEmployeeListQuery? query = null;
 
         // Act
         var actual = await _handler.Handle(query, CancellationToken.None);
@@ -46,13 +46,13 @@ public class GetVisitorListQueryTests
     }
 
     [Test]
-    public async Task Handle_WhenVisitorListNotFound_ReturnsNotFoundAsync()
+    public async Task Handle_WhenEmployeeListNotFound_ReturnsNotFoundAsync()
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        GetVisitorListQuery? query = new();
-        List<Visitor> visitors = [];
-        _contextMock.Setup(c => c.Visitors).Returns(visitors.AsQueryable().BuildMockDbSet().Object);
+        GetEmployeeListQuery? query = new();
+        List<Employee> Employees = [];
+        _contextMock.Setup(c => c.Employees).Returns(Employees.AsQueryable().BuildMockDbSet().Object);
 
         // Act
         var actual = await _handler.Handle(query, CancellationToken.None);
@@ -65,7 +65,7 @@ public class GetVisitorListQueryTests
             Assert.That(actual.Result.AsT1, Is.InstanceOf<NotFound>());
         });
 
-        _contextMock.Verify(c => c.Visitors, Times.Once());
+        _contextMock.Verify(c => c.Employees, Times.Once());
     }
 
     [Test]
@@ -73,10 +73,10 @@ public class GetVisitorListQueryTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        GetVisitorListQuery? query = new();
-        Visitor visitor = new() { Id = id, Name = "Name", Email = "Email" };
-        List<Visitor> visitors = [visitor];
-        _contextMock.Setup(c => c.Visitors).Returns(visitors.AsQueryable().BuildMockDbSet().Object);
+        GetEmployeeListQuery? query = new();
+        Employee Employee = new() { Id = id, Name = "Name", Role = new("Role") };
+        List<Employee> Employees = [Employee];
+        _contextMock.Setup(c => c.Employees).Returns(Employees.AsQueryable().BuildMockDbSet().Object);
         _contextMock.Setup(c => c.RentedBooks).ReturnsDbSet([]);
 
         // Act
@@ -87,10 +87,10 @@ public class GetVisitorListQueryTests
         {
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual.Result.IsT0, Is.True);
-            Assert.That(actual.Result.AsT0, Is.InstanceOf<IReadOnlyList<VisitorResultDto>>());
+            Assert.That(actual.Result.AsT0, Is.InstanceOf<IReadOnlyList<EmployeeResultDto>>());
             Assert.That(actual.Result.AsT0, Has.Count.EqualTo(1));
         });
 
-        _contextMock.Verify(c => c.Visitors, Times.Once());
+        _contextMock.Verify(c => c.Employees, Times.Once());
     }
 }

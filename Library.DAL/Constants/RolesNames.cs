@@ -1,4 +1,4 @@
-﻿namespace Library.DAL.Models.Employees;
+﻿namespace Library.DAL.Constants;
 
 public class RolesNames
 {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Library.BLL.Modules.Admin.Commands.AddEmployee;
 using Library.DAL;
 using Library.DAL.Dto.QueryCommandResult;
 using MediatR;
@@ -21,6 +22,11 @@ public class QueryHandler : IRequestHandler<GetEmployeeListQuery, GetEmployeeLis
 
     public async Task<GetEmployeeListQueryResult> Handle(GetEmployeeListQuery request, CancellationToken cancellationToken)
     {
+        if (request == null)
+        {
+            return new GetEmployeeListQueryResult(new NotFound());
+        }
+
         List<EmployeeResultDto> result = await _context.Employees
             .AsNoTracking()
             .Include(v => v.Role)

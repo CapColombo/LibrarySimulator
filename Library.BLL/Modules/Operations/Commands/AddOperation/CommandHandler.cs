@@ -36,6 +36,11 @@ public class CommandHandler : IRequestHandler<AddOperationCommand, AddOperationC
 
     public async Task<AddOperationCommandResult> Handle(AddOperationCommand request, CancellationToken cancellationToken)
     {
+        if (request is null)
+        {
+            return new AddOperationCommandResult(new Error());
+        }
+
         if (request.OperationDto.OperationType is OperationType.Returned)
         {
             _operationData.RegisterObserver(_violationObserver);
@@ -52,7 +57,7 @@ public class CommandHandler : IRequestHandler<AddOperationCommand, AddOperationC
 
         try
         {
-            await _operationData.SetOperation(operation, cancellationToken);
+            await _operationData.SetOperationAsync(operation, cancellationToken);
         }
         catch (Exception)
         {

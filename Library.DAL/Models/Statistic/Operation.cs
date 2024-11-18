@@ -19,7 +19,7 @@ public class Operation
         RentalPeriod = operationType is OperationType.Rented ? period : null;
     }
 
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 
     public Guid BookId { get; set; }
 
@@ -29,7 +29,7 @@ public class Operation
 
     public Visitor Visitor { get; set; }
 
-    public DateTime Date { get; }
+    public DateTime Date { get; set; }
 
     public OperationType OperationType { get; set; }
 

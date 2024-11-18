@@ -1,20 +1,14 @@
-﻿using Library.DAL.Models.Employees;
-using Library.DAL.Models.Enums;
+﻿using Library.DAL.Models.Enums;
 
 namespace Library.DAL.Dto.QueryCommandResult;
 
 public class EmployeeResultDto
 {
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; }
 
-    public Role Role { get; set; }
+    public string Role { get; set; }
 
     public WorkSchedule WorkSchedule { get; set; }
-
-    public static implicit operator EmployeeResultDto?(VisitorResultDto? v)
-    {
-        throw new NotImplementedException();
-    }
 }

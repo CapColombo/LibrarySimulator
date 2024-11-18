@@ -21,7 +21,7 @@ public class QueryHandler : IRequestHandler<GetBookQuery, GetBookQueryResult>
 
     public async Task<GetBookQueryResult> Handle(GetBookQuery request, CancellationToken cancellationToken)
     {
-        if (request is null || !Guid.TryParse(request.BookId, out Guid BookId))
+        if (request is null || !Guid.TryParse(request.BookId, out Guid bookId))
         {
             return new GetBookQueryResult(new NotFound());
         }
@@ -31,7 +31,7 @@ public class QueryHandler : IRequestHandler<GetBookQuery, GetBookQueryResult>
             .Include(b => b.Genres)
             .Include(b => b.Authors)
             .ProjectTo<BookResultDto>(_mapper.ConfigurationProvider)
-            .FirstOrDefaultAsync(v => v.Id == BookId, cancellationToken);
+            .FirstOrDefaultAsync(v => v.Id == bookId, cancellationToken);
 
         if (result is null)
         {

@@ -31,9 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Books\" />
-    <Folder Include="Modules\Employees\" />
-    <Folder Include="Modules\Operations\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

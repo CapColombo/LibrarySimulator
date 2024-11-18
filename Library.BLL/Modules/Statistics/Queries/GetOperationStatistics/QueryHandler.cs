@@ -34,7 +34,7 @@ public class QueryHandler : IRequestHandler<GetOperationStatisticsQuery, GetOper
             .ProjectTo<OperationStatisticsResultDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        if (result is null)
+        if (result.Count == 0)
         {
             return new GetOperationStatisticsQueryResult(new NotFound());
         }

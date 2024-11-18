@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using Library.BLL.Modules.Visitors.AutoMapper;
-using Library.BLL.Modules.Visitors.Queries.GetVisitorList;
+using Library.BLL.Modules.Books.AutoMapper;
+using Library.BLL.Modules.Books.Queries.GetBook;
 using Library.DAL;
 using Library.DAL.Dto.QueryCommandResult;
-using Library.DAL.Models.Visitors;
+using Library.DAL.Models.Books;
 using MockQueryable.Moq;
 using Moq;
 using Moq.EntityFrameworkCore;
 using OneOf.Types;
 
-namespace Library.Tests.Modules.Visitors;
+namespace Library.Tests.Modules.Books;
 
-public class GetVisitorListQueryTests
+public class GetBookQueryTests
 {
     private Mock<ILibraryContext> _contextMock;
     private Mock<IMapper> _mapperMock;
@@ -21,7 +21,7 @@ public class GetVisitorListQueryTests
     public void Setup()
     {
         _contextMock = new Mock<ILibraryContext>();
-        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(new VisitorProfile()));
+        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(new BookProfile()));
         _mapperMock = new Mock<IMapper>();
         _mapperMock.Setup(m => m.ConfigurationProvider).Returns(configuration);
         _handler = new(_contextMock.Object, _mapperMock.Object);
@@ -31,7 +31,7 @@ public class GetVisitorListQueryTests
     public async Task Handle_RequestIsNull_ReturnsNotFoundAsync()
     {
         // Arrange
-        GetVisitorListQuery? query = null;
+        GetBookQuery? query = null;
 
         // Act
         var actual = await _handler.Handle(query, CancellationToken.None);
@@ -46,13 +46,32 @@ public class GetVisitorListQueryTests
     }
 
     [Test]
-    public async Task Handle_WhenVisitorListNotFound_ReturnsNotFoundAsync()
+    public async Task Handle_IdIsInvalidGuid_ReturnsNotFoundAsync()
+    {
+        // Arrange
+        string id = "error";
+        GetBookQuery? query = new(id);
+
+        // Act
+        var actual = await _handler.Handle(query, CancellationToken.None);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual.Result.IsT1, Is.True);
+            Assert.That(actual.Result.AsT1, Is.InstanceOf<NotFound>());
+        });
+    }
+
+    [Test]
+    public async Task Handle_WhenBookNotFound_ReturnsNotFoundAsync()
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        GetVisitorListQuery? query = new();
-        List<Visitor> visitors = [];
-        _contextMock.Setup(c => c.Visitors).Returns(visitors.AsQueryable().BuildMockDbSet().Object);
+        GetBookQuery? query = new(id.ToString());
+        List<Book> books = [];
+        _contextMock.Setup(c => c.Books).Returns(books.AsQueryable().BuildMockDbSet().Object);
 
         // Act
         var actual = await _handler.Handle(query, CancellationToken.None);
@@ -65,7 +84,7 @@ public class GetVisitorListQueryTests
             Assert.That(actual.Result.AsT1, Is.InstanceOf<NotFound>());
         });
 
-        _contextMock.Verify(c => c.Visitors, Times.Once());
+        _contextMock.Verify(c => c.Books, Times.Once());
     }
 
     [Test]
@@ -73,10 +92,10 @@ public class GetVisitorListQueryTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        GetVisitorListQuery? query = new();
-        Visitor visitor = new() { Id = id, Name = "Name", Email = "Email" };
-        List<Visitor> visitors = [visitor];
-        _contextMock.Setup(c => c.Visitors).Returns(visitors.AsQueryable().BuildMockDbSet().Object);
+        GetBookQuery? query = new(id.ToString());
+        Book book = new() { Id = id, Title = "Title" };
+        List<Book> books = [book];
+        _contextMock.Setup(c => c.Books).Returns(books.AsQueryable().BuildMockDbSet().Object);
         _contextMock.Setup(c => c.RentedBooks).ReturnsDbSet([]);
 
         // Act
@@ -87,10 +106,9 @@ public class GetVisitorListQueryTests
         {
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual.Result.IsT0, Is.True);
-            Assert.That(actual.Result.AsT0, Is.InstanceOf<IReadOnlyList<VisitorResultDto>>());
-            Assert.That(actual.Result.AsT0, Has.Count.EqualTo(1));
+            Assert.That(actual.Result.AsT0, Is.InstanceOf<BookResultDto>());
         });
 
-        _contextMock.Verify(c => c.Visitors, Times.Once());
+        _contextMock.Verify(c => c.Books, Times.Once());
     }
 }

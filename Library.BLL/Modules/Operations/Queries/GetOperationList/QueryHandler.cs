@@ -21,6 +21,11 @@ public class QueryHandler : IRequestHandler<GetOperationListQuery, GetOperationL
 
     public async Task<GetOperationListQueryResult> Handle(GetOperationListQuery request, CancellationToken cancellationToken)
     {
+        if (request == null)
+        {
+            return new GetOperationListQueryResult(new NotFound());
+        }
+
         List<OperationResultDto> result = await _context.Operations
             .AsNoTracking()
             .ProjectTo<OperationResultDto>(_mapper.ConfigurationProvider)

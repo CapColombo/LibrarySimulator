@@ -21,6 +21,11 @@ public class QueryHandler : IRequestHandler<GetBookListQuery, GetBookListQueryRe
 
     public async Task<GetBookListQueryResult> Handle(GetBookListQuery request, CancellationToken cancellationToken)
     {
+        if (request is null)
+        {
+            return new GetBookListQueryResult(new NotFound());
+        }
+
         List<BookResultDto> result = await _context.Books
             .AsNoTracking()
             .Include(b => b.Genres)
