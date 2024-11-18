@@ -1,40 +1,40 @@
 ﻿using FluentValidation.TestHelper;
-using Library.DAL.Models.Books;
+using Library.DAL.Dto.Controllers;
 using LibrarySimulator.Validators;
 
 namespace Library.Tests.Validators;
 
-public class AuthorValidatorTests
+public class BookValidatorTests
 {
-    private AuthorValidator? _validator;
+    private BookValidator? _validator;
 
     [SetUp]
     public void SetUp()
     {
-        _validator = new AuthorValidator();
+        _validator = new BookValidator();
     }
 
     [Test]
     public void Validator_WhenNameNull_ShouldHaveError()
     {
-        var model = new Author { Name = null };
+        var model = new BookDto { Title = null };
         var result = _validator.TestValidate(model);
-        result.ShouldHaveValidationErrorFor(a => a.Name);
+        result.ShouldHaveValidationErrorFor(b => b.Title);
     }
 
     [Test]
     public void Validator_WhenNameLessTwoSymbols_ShouldHaveError()
     {
-        var model = new Author { Name = "a" };
+        var model = new BookDto { Title = "a" };
         var result = _validator.TestValidate(model);
-        result.ShouldHaveValidationErrorFor(a => a.Name);
+        result.ShouldHaveValidationErrorFor(b => b.Title);
     }
 
     [Test]
     public void Validator_WhenNameIsSpecified_ShouldNotHaveError()
     {
-        var model = new Author { Name = "Jeremy" };
+        var model = new BookDto { Title = "Great Book" };
         var result = _validator.TestValidate(model);
-        result.ShouldNotHaveValidationErrorFor(a => a.Name);
+        result.ShouldNotHaveValidationErrorFor(b => b.Title);
     }
 }
