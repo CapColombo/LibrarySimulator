@@ -1,4 +1,4 @@
-﻿namespace Library.DAL.Dto.Controllers;
+﻿namespace LibrarySimulator.Controllers.Dto;
 
 public class VisitorDto
 {

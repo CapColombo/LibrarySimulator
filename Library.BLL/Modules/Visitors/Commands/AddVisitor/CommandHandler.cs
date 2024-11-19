@@ -23,7 +23,8 @@ public class CommandHandler : IRequestHandler<AddVisitorCommand, AddVisitorComma
 
         Visitor newVisitor = new(request.VisitorDto.Name, request.VisitorDto.Email);
 
-        await _context.AddWithSaveAsync(newVisitor, cancellationToken);
+        await _context.AddAsync(newVisitor, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new AddVisitorCommandResult(new Success());
     }

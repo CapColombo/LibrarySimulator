@@ -27,7 +27,8 @@ public class CommandHandler : IRequestHandler<DeleteVisitorCommand, DeleteVisito
             return new DeleteVisitorCommandResult(new Error());
         }
 
-        await _context.RemoveWithSaveAsync(visitor, cancellationToken);
+        _context.Remove(visitor);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new DeleteVisitorCommandResult(new Success());
     }

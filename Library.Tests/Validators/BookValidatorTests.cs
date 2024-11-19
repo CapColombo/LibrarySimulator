@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using Library.DAL.Dto.Controllers;
+using LibrarySimulator.Controllers.Dto;
 using LibrarySimulator.Validators;
 
 namespace Library.Tests.Validators;

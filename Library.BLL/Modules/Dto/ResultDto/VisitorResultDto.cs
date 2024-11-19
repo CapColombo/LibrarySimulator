@@ -1,6 +1,6 @@
 ﻿using Library.DAL.Models.Visitors;
 
-namespace Library.DAL.Dto.QueryCommandResult;
+namespace Library.BLL.Modules.Dto.ResultDto;
 
 public class VisitorResultDto
 {

@@ -26,24 +26,6 @@ public class LibraryContext : DbContext, ILibraryContext
 
     public DbSet<Violation> Violations { get; set; }
 
-    public async Task<int> AddWithSaveAsync<T>(T value, CancellationToken cancellationToken) where T : class
-    {
-        Add(value);
-        return await SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task<int> RemoveWithSaveAsync<T>(T value, CancellationToken token) where T : class
-    {
-        Remove(value);
-        return await SaveChangesAsync(token);
-    }
-
-    public async Task<int> UpdateWithSaveAsync<T>(T value, CancellationToken cancellationToken) where T : class
-    {
-        Update(value);
-        return await SaveChangesAsync(cancellationToken);
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

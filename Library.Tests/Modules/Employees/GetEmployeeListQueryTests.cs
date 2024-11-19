@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.BLL.Modules.Admin.AutoMapper;
 using Library.BLL.Modules.Admin.Queries.GetEmployeeList;
+using Library.BLL.Modules.AutoMapper;
+using Library.BLL.Modules.Dto.ResultDto;
 using Library.DAL;
-using Library.DAL.Dto.QueryCommandResult;
 using Library.DAL.Models.Employees;
 using MockQueryable.Moq;
 using Moq;

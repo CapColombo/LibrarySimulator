@@ -98,6 +98,6 @@ public class DeleteEmployeeCommandTests
             Assert.That(actual.Result.AsT0, Is.InstanceOf<Success>());
         });
 
-        _contextMock.Verify(c => c.RemoveWithSaveAsync(It.IsAny<Employee>(), CancellationToken.None), Times.Once());
+        _contextMock.Verify(c => c.Remove(It.IsAny<Employee>()), Times.Once());
     }
 }

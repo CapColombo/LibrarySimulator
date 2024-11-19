@@ -27,7 +27,8 @@ public class CommandHandler : IRequestHandler<DeleteEmployeeCommand, DeleteEmplo
             return new DeleteEmployeeCommandResult(new Error());
         }
 
-        await _context.RemoveWithSaveAsync(employee, cancellationToken);
+        _context.Remove(employee);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new DeleteEmployeeCommandResult(new Success());
     }

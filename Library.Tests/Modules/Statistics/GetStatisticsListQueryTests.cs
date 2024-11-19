@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.BLL.Modules.Statistics.AutoMapper;
+using Library.BLL.Modules.AutoMapper;
+using Library.BLL.Modules.Dto.ResultDto;
 using Library.BLL.Modules.Statistics.Queries.GetOperationStatistics;
 using Library.DAL;
-using Library.DAL.Dto.QueryCommandResult;
 using Library.DAL.Models.Statistic;
 using MockQueryable.Moq;
 using Moq;

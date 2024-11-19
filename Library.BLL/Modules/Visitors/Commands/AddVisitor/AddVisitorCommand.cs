@@ -1,5 +1,5 @@
 ﻿using Library.BLL.Base.Command;
-using Library.DAL.Dto.Controllers;
+using LibrarySimulator.Controllers.Dto;
 
 namespace Library.BLL.Modules.Visitors.Commands.AddVisitor;
 

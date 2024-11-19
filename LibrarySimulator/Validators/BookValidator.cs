@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Library.DAL.Dto.Controllers;
+using LibrarySimulator.Controllers.Dto;
 
 namespace LibrarySimulator.Validators;
 

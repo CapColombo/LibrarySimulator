@@ -4,7 +4,7 @@ using Library.BLL.Modules.Visitors.Commands.DeleteVisitor;
 using Library.BLL.Modules.Visitors.Queries.GetVisitor;
 using Library.BLL.Modules.Visitors.Queries.GetVisitorList;
 using Library.DAL.Constants;
-using Library.DAL.Dto.Controllers;
+using LibrarySimulator.Controllers.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

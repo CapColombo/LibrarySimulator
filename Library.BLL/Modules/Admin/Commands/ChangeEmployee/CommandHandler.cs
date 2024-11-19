@@ -33,7 +33,8 @@ public class CommandHandler : IRequestHandler<ChangeEmployeeCommand, ChangeEmplo
         employee.Role = request.EmployeeDto.Role;
         employee.WorkSchedule = request.EmployeeDto.WorkSchedule;
 
-        await _context.UpdateWithSaveAsync(employee, cancellationToken);
+        _context.Update(employee);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new ChangeEmployeeCommandResult(new Success());
     }

@@ -1,4 +1,5 @@
-﻿using Library.DAL;
+﻿using Library.BLL.Services.ModelWorkers;
+using Library.DAL;
 using Library.DAL.Models.Enums;
 using Library.DAL.Models.Statistic;
 using Library.DAL.Models.Visitors;
@@ -65,9 +66,10 @@ public class ExpiredViolationWorker : IExpiredViolationWorker
             Violation violation = new(DateTime.Now, rentedBook.VisitorId, rentedBook.BookId, ViolationType.DamagedBook, condition, condition, period);
 
             Visitor visitor = visitors.First(v => v.Id == rentedBook.VisitorId);
+            VisitorWorker worker = new(visitor);
 
             context.Add(violation);
-            visitor.AddViolation(violation);
+            worker.AddViolation(violation);
         }
 
         await context.SaveChangesAsync(token);

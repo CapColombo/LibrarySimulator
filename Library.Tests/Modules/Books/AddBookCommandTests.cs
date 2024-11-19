@@ -1,6 +1,6 @@
 ﻿using Library.BLL.Modules.Books.Commands.AddBook;
 using Library.DAL;
-using Library.DAL.Dto.Controllers;
+using LibrarySimulator.Controllers.Dto;
 using Moq;
 using OneOf.Types;
 

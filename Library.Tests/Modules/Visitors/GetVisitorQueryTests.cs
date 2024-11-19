@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.BLL.Modules.Visitors.AutoMapper;
+using Library.BLL.Modules.AutoMapper;
+using Library.BLL.Modules.Dto.ResultDto;
 using Library.BLL.Modules.Visitors.Queries.GetVisitor;
 using Library.DAL;
-using Library.DAL.Dto.QueryCommandResult;
 using Library.DAL.Models.Visitors;
 using MockQueryable.Moq;
 using Moq;

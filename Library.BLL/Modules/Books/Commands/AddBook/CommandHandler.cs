@@ -23,7 +23,8 @@ public class CommandHandler : IRequestHandler<AddBookCommand, AddBookCommandResu
 
         Book newBook = new(request.BookDto.Title, request.BookDto.Description, request.BookDto.Authors, request.BookDto.Genres, request.BookDto.PublicationDate);
 
-        await _context.AddWithSaveAsync(newBook, cancellationToken);
+        await _context.AddAsync(newBook, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new AddBookCommandResult(new Success());
     }

@@ -98,6 +98,6 @@ public class DeleteVisitorCommandTests
             Assert.That(actual.Result.AsT0, Is.InstanceOf<Success>());
         });
 
-        _contextMock.Verify(c => c.RemoveWithSaveAsync(It.IsAny<Visitor>(), CancellationToken.None), Times.Once());
+        _contextMock.Verify(c => c.Remove(It.IsAny<Visitor>()), Times.Once());
     }
 }

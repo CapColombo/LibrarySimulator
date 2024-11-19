@@ -33,7 +33,8 @@ public class CommandHandler : IRequestHandler<ChangeBookCommand, ChangeBookComma
         book.Genres = request.BookDto.Genres;
         book.PublicationDate = request.BookDto.PublicationDate;
 
-        await _context.UpdateWithSaveAsync(book, cancellationToken);
+        _context.Update(book);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new ChangeBookCommandResult(new Success());
     }

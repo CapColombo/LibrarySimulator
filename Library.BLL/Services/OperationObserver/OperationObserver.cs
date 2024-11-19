@@ -20,6 +20,7 @@ public class OperationObserver : IOperationObserver
             throw new ArgumentException(nameof(operation));
         }
 
-        await _context.UpdateWithSaveAsync(operation, token);
+        _context.Update(operation);
+        await _context.SaveChangesAsync(token);
     }
 }

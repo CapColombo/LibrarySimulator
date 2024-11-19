@@ -98,6 +98,6 @@ public class ChangeVisitorCommandTests
             Assert.That(actual.Result.AsT0, Is.InstanceOf<Success>());
         });
 
-        _contextMock.Verify(c => c.UpdateWithSaveAsync(It.IsAny<Visitor>(), CancellationToken.None), Times.Once());
+        _contextMock.Verify(c => c.Update(It.IsAny<Visitor>()), Times.Once());
     }
 }

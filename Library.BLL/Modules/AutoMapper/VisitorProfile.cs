@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.DAL.Dto.QueryCommandResult;
+using Library.BLL.Modules.Dto.ResultDto;
 using Library.DAL.Models.Visitors;
 
-namespace Library.BLL.Modules.Visitors.AutoMapper;
+namespace Library.BLL.Modules.AutoMapper;
 
 public class VisitorProfile : Profile
 {

@@ -1,6 +1,6 @@
 ﻿using Library.DAL.Models.Books;
 
-namespace Library.DAL.Dto.Controllers;
+namespace LibrarySimulator.Controllers.Dto;
 
 public class BookDto
 {

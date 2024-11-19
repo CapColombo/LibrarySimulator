@@ -98,6 +98,6 @@ public class ChangeEmployeeCommandTests
             Assert.That(actual.Result.AsT0, Is.InstanceOf<Success>());
         });
 
-        _contextMock.Verify(c => c.UpdateWithSaveAsync(It.IsAny<Employee>(), CancellationToken.None), Times.Once());
+        _contextMock.Verify(c => c.Update(It.IsAny<Employee>()), Times.Once());
     }
 }

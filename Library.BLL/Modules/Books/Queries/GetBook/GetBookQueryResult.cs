@@ -1,5 +1,5 @@
 ﻿using Library.BLL.Base.Queries;
-using Library.DAL.Dto.QueryCommandResult;
+using Library.BLL.Modules.Dto.ResultDto;
 using OneOf;
 using OneOf.Types;
 

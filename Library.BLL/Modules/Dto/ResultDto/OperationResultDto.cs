@@ -1,6 +1,6 @@
 ﻿using Library.DAL.Models.Enums;
 
-namespace Library.DAL.Dto.QueryCommandResult;
+namespace Library.BLL.Modules.Dto.ResultDto;
 
 public class OperationResultDto
 {

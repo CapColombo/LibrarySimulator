@@ -3,7 +3,7 @@ using Library.BLL.Modules.Books.Commands.ChangeBook;
 using Library.BLL.Modules.Books.Commands.DeleteBook;
 using Library.BLL.Modules.Books.Queries.GetBook;
 using Library.BLL.Modules.Books.Queries.GetBookList;
-using Library.DAL.Dto.Controllers;
+using LibrarySimulator.Controllers.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

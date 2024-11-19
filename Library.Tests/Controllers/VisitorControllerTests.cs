@@ -1,12 +1,12 @@
-﻿using Library.BLL.Modules.Visitors.Commands.AddVisitor;
+﻿using Library.BLL.Modules.Dto.ResultDto;
+using Library.BLL.Modules.Visitors.Commands.AddVisitor;
 using Library.BLL.Modules.Visitors.Commands.ChangeVisitor;
 using Library.BLL.Modules.Visitors.Commands.DeleteVisitor;
 using Library.BLL.Modules.Visitors.Queries.GetVisitor;
 using Library.BLL.Modules.Visitors.Queries.GetVisitorList;
 using Library.DAL.Constants;
-using Library.DAL.Dto.Controllers;
-using Library.DAL.Dto.QueryCommandResult;
 using LibrarySimulator.Controllers;
+using LibrarySimulator.Controllers.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -1,9 +1,5 @@
 ﻿using Library.BLL.HostedServices;
-using Library.BLL.Modules.Admin.AutoMapper;
-using Library.BLL.Modules.Books.AutoMapper;
-using Library.BLL.Modules.Operations.AutoMapper;
-using Library.BLL.Modules.Statistics.AutoMapper;
-using Library.BLL.Modules.Visitors.AutoMapper;
+using Library.BLL.Modules.AutoMapper;
 using Library.BLL.Services.ExpiredViolationWorker;
 using Library.BLL.Services.OperationObserver;
 using Library.BLL.Services.OperationObserver.Interfaces;

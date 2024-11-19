@@ -43,6 +43,7 @@ public class BookObserver : IBookObserver
             book.RentedBookId = null;
         }
 
-        await _context.UpdateWithSaveAsync(book, token);
+        _context.Update(book);
+        await _context.SaveChangesAsync(token);
     }
 }

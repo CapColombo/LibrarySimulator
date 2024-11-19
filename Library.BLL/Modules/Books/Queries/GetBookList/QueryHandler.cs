@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Library.BLL.Modules.Dto.ResultDto;
 using Library.DAL;
-using Library.DAL.Dto.QueryCommandResult;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf.Types;

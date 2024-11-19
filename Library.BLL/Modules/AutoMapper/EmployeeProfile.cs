@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.DAL.Dto.QueryCommandResult;
+using Library.BLL.Modules.Dto.ResultDto;
 using Library.DAL.Models.Employees;
 
-namespace Library.BLL.Modules.Admin.AutoMapper;
+namespace Library.BLL.Modules.AutoMapper;
 
 public class EmployeeProfile : Profile
 {

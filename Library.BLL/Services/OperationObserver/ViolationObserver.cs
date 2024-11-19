@@ -1,4 +1,5 @@
-﻿using Library.BLL.Services.OperationObserver.Interfaces;
+﻿using Library.BLL.Services.ModelWorkers;
+using Library.BLL.Services.OperationObserver.Interfaces;
 using Library.Common.Extensions;
 using Library.DAL;
 using Library.DAL.Models.Enums;
@@ -31,6 +32,8 @@ public class ViolationObserver : IViolationObserver
             throw new ArgumentException(nameof(visitor));
         }
 
+        VisitorWorker worker = new(visitor);
+
         PhysicalCondition originalCondition = await _context.Books
             .AsNoTracking()
             .Where(b => b.Id == operation.BookId)
@@ -56,9 +59,9 @@ public class ViolationObserver : IViolationObserver
             damageViolation = new(DateTime.Now, operation.VisitorId, operation.BookId,
                 ViolationType.DamagedBook, originalCondition, operation.PhysicalCondition);
 
-            _context.Add(damageViolation);
+            await _context.AddAsync(damageViolation, token);
 
-            visitor.AddViolation(damageViolation);
+            worker.AddViolation(damageViolation);
         }
 
         if (hasExpired)
@@ -72,8 +75,8 @@ public class ViolationObserver : IViolationObserver
                 expiredViolation = new(DateTime.Now, operation.VisitorId, operation.BookId,
                                 ViolationType.DamagedBook, originalCondition, operation.PhysicalCondition, period);
 
-                _context.Add(expiredViolation);
-                visitor.AddViolation(expiredViolation);
+                await _context.AddAsync(expiredViolation, token);
+                worker.AddViolation(expiredViolation);
             }
             else
             {

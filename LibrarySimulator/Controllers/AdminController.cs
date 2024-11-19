@@ -4,7 +4,7 @@ using Library.BLL.Modules.Admin.Commands.DeleteEmployee;
 using Library.BLL.Modules.Admin.Queries.GetEmployee;
 using Library.BLL.Modules.Admin.Queries.GetEmployeeList;
 using Library.DAL.Constants;
-using Library.DAL.Dto.Controllers;
+using LibrarySimulator.Controllers.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

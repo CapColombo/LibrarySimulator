@@ -1,4 +1,5 @@
-﻿using Library.BLL.Services.OperationObserver.Interfaces;
+﻿using Library.BLL.Services.ModelWorkers;
+using Library.BLL.Services.OperationObserver.Interfaces;
 using Library.DAL;
 using Library.DAL.Models.Enums;
 using Library.DAL.Models.Statistic;
@@ -24,20 +25,22 @@ public class VisitorObserver : IVisitorObserver
         }
 
         Visitor? visitor = await _context.Visitors.FirstOrDefaultAsync(v => v.Id == operation.VisitorId, token);
-        RentedBook? book = await _context.RentedBooks.FirstOrDefaultAsync(b => b.BookId == operation.BookId);
+        RentedBook? book = await _context.RentedBooks.FirstOrDefaultAsync(b => b.BookId == operation.BookId, token);
 
         if (visitor is null || book is null)
         {
             throw new ArgumentException($"{nameof(visitor)} or {nameof(book)}");
         }
 
+        VisitorWorker worker = new(visitor);
+
         switch (operation.OperationType)
         {
             case OperationType.Rented:
-                visitor.AddBook(book);
+                worker.AddBook(book);
                 break;
             case OperationType.Returned:
-                visitor.ReturnBook(book);
+                worker.ReturnBook(book);
                 break;
             default:
                 break;

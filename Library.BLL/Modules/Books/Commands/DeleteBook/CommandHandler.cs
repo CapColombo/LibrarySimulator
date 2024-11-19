@@ -27,7 +27,8 @@ public class CommandHandler : IRequestHandler<DeleteBookCommand, DeleteBookComma
             return new DeleteBookCommandResult(new Error());
         }
 
-        await _context.RemoveWithSaveAsync(book, cancellationToken);
+        _context.Remove(book);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new DeleteBookCommandResult(new Success());
     }

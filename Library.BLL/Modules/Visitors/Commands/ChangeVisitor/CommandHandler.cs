@@ -30,7 +30,8 @@ public class CommandHandler : IRequestHandler<ChangeVisitorCommand, ChangeVisito
         visitor.Name = request.VisitorDto.Name;
         visitor.Email = request.VisitorDto.Email;
 
-        await _context.UpdateWithSaveAsync(visitor, cancellationToken);
+        _context.Update(visitor);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new ChangeVisitorCommandResult(new Success());
     }

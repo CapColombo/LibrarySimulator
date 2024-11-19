@@ -27,15 +27,11 @@ public interface ILibraryContext
 
     Task<int> SaveChangesAsync(CancellationToken token);
 
-    Task<int> RemoveWithSaveAsync<T>(T value, CancellationToken token) where T : class;
-
-    EntityEntry<T> Add<T>(T value) where T : class;
-
-    Task<int> AddWithSaveAsync<T>(T value, CancellationToken token) where T : class;
+    ValueTask<EntityEntry<T>> AddAsync<T>(T value, CancellationToken token = default) where T : class;
 
     EntityEntry<T> Update<T>(T value) where T : class;
 
-    Task<int> UpdateWithSaveAsync<T>(T value, CancellationToken token) where T : class;
+    EntityEntry<T> Remove<T>(T value) where T : class;
 
     public void UpdateRange(params object[] entities);
 }

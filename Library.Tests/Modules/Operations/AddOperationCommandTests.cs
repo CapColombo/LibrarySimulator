@@ -1,7 +1,5 @@
 ﻿using Library.BLL.Modules.Operations.Commands.AddOperation;
 using Library.BLL.Services.OperationObserver.Interfaces;
-using Library.DAL;
-using Library.DAL.Dto.Controllers;
 using Library.DAL.Models.Enums;
 using Library.DAL.Models.Statistic;
 using Moq;

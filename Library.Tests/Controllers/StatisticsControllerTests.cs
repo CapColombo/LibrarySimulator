@@ -1,6 +1,6 @@
-﻿using Library.BLL.Modules.Statistics.Queries.GetOperationStatistics;
+﻿using Library.BLL.Modules.Dto.ResultDto;
+using Library.BLL.Modules.Statistics.Queries.GetOperationStatistics;
 using Library.DAL.Constants;
-using Library.DAL.Dto.QueryCommandResult;
 using LibrarySimulator.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Http;

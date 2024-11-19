@@ -1,7 +1,7 @@
 ﻿using Library.DAL.Models.Employees;
 using Library.DAL.Models.Enums;
 
-namespace Library.DAL.Dto.Controllers;
+namespace LibrarySimulator.Controllers.Dto;
 
 public class EmployeeDto
 {

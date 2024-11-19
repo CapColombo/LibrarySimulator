@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.BLL.Modules.Books.AutoMapper;
+using Library.BLL.Modules.AutoMapper;
 using Library.BLL.Modules.Books.Queries.GetBookList;
+using Library.BLL.Modules.Dto.ResultDto;
 using Library.DAL;
-using Library.DAL.Dto.QueryCommandResult;
 using Library.DAL.Models.Books;
 using MockQueryable.Moq;
 using Moq;

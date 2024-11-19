@@ -1,9 +1,9 @@
-﻿using Library.BLL.Modules.Operations.Commands.AddOperation;
+﻿using Library.BLL.Modules.Dto.ResultDto;
+using Library.BLL.Modules.Operations.Commands.AddOperation;
 using Library.BLL.Modules.Operations.Queries.GetOperationList;
 using Library.DAL.Constants;
-using Library.DAL.Dto.Controllers;
-using Library.DAL.Dto.QueryCommandResult;
 using LibrarySimulator.Controllers;
+using LibrarySimulator.Controllers.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
